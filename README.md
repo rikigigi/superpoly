@@ -16,7 +16,7 @@ p(x) = a_2 (x^2-1)^2 + a_3 (x^2-1)^2 + ...
 # example run
 
 ```
-cargo run <<< '1                             0:31:29
+cargo run <<< '1
 3
 2
 2.19
@@ -25,6 +25,8 @@ cargo run <<< '1                             0:31:29
 0
 ' > out
 ```
+
+beginning of the output:
 
 ```
   ┌                                                                                           ┐
