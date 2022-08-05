@@ -11,7 +11,7 @@ and then, for an arbitrary number of points it is possible to specify the second
 
 The polynomial has the following form:
 
-p(x) = a_2 (x^2-1)^2 + a_3 (x^2-1)^2 + ...
+p(x) = a_2 (x^2-1)^2 + a_3 (x^2-1)^3 + ...
 
 # example run
 
