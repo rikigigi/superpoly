@@ -97,7 +97,7 @@ fn main() {
 
     let decomp = mat.lu();
     let xb = decomp.solve(&b).expect("Linear solution of the system failed");
-    println!("{}",xb);
+    println!("values of coefficiente a_2 ... a_{}\n{}",4+nd2,xb);
 
     for i in -350..351 {
         let x : f64 = i as f64 / 100.0 ;
