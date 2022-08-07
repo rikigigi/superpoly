@@ -18,8 +18,8 @@ fn big_poly_linear_system_rows(deriv2_x: Vec<f64> ) -> Vec< Vec<f64> > {
         two_pow3 *= 8.0;
         coeff[1].push( two_pow3);
         for j in 0..deriv2_x.len() {
-            let a = x2m1[j]*(ifloat-1.0)*deriv2_x[j];
-            x2m1[j]*=(deriv2_x[j]*deriv2_x[j]-1.0);
+            let a = x2m1[j]*(ifloat-1.0)*2.0*deriv2_x[j]*deriv2_x[j];
+            x2m1[j]*=deriv2_x[j]*deriv2_x[j]-1.0;
             let b = x2m1[j];
             coeff[3+j].push(2.0*ifloat*(a+b));
         }
@@ -28,16 +28,22 @@ fn big_poly_linear_system_rows(deriv2_x: Vec<f64> ) -> Vec< Vec<f64> > {
 
 }
 
-fn big_poly_calc(x : f64, param : &DVector<f64> ) -> f64 {
+fn big_poly_calc(x : f64, param : &DVector<f64> ) -> (f64,f64,f64) {
 
     let mut x2 = x*x-1.0;
+    let mut x2p=1.0;
     let mut y = 0.0;
-    x2*=x2;
+    let mut y1 = 0.0;
+    let mut y2 = 0.0;
     for i in 0..param.len(){
-        y+=param[i]*x2;
+        let i_s = (i+2) as f64;
+        y2+=2.0*i_s*param[i]*((i_s-1.0)*2.0*x*x*x2p+x2);
+        y1+=i_s*2.0*x*param[i]*x2;
+        x2p=x2;
         x2*=x*x-1.0;
+        y+=param[i]*x2;
     }
-    y
+    (y,y1,y2)
 }
 
 
@@ -89,7 +95,7 @@ fn main() {
     b[1]=h1;
     b[2]=0.0;
     for i in 0..nd2{
-        b[2+i]=p2y[i];
+        b[3+i]=p2y[i];
     }
 
     println!("{}",mat);
@@ -101,7 +107,7 @@ fn main() {
 
     for i in -350..351 {
         let x : f64 = i as f64 / 100.0 ;
-        let px3 = big_poly_calc(x,&xb);
-        println!("{x} {px3}");
+        let (y,y1,y2) = big_poly_calc(x,&xb);
+        println!("{x} {y} {y1} {y2}");
     }
 }
