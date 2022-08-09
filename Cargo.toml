@@ -1,5 +1,5 @@
 [package]
-name = "poly_interpolation"
+name = "superpoly"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,3 +7,6 @@ edition = "2021"
 
 [dependencies]
 nalgebra = "*"
+
+[dev-dependencies]
+insta = { version = "1.18.0", features = ["yaml"] }
